@@ -14,6 +14,7 @@
 		84A7852E2495B8C9009E3300 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A7852D2495B8C9009E3300 /* Assets.xcassets */; };
 		84A785312495B8C9009E3300 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84A7852F2495B8C9009E3300 /* LaunchScreen.storyboard */; };
 		84A785342495B8C9009E3300 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A785332495B8C9009E3300 /* main.m */; };
+		84A785432495CA3C009E3300 /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A785422495CA3C009E3300 /* PaddedTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		84A785302495B8C9009E3300 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84A785322495B8C9009E3300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84A785332495B8C9009E3300 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		84A785412495CA3B009E3300 /* Programmatic-ScrollView-Login-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Programmatic-ScrollView-Login-Bridging-Header.h"; sourceTree = "<group>"; };
+		84A785422495CA3C009E3300 /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +75,8 @@
 				84A7852F2495B8C9009E3300 /* LaunchScreen.storyboard */,
 				84A785322495B8C9009E3300 /* Info.plist */,
 				84A785332495B8C9009E3300 /* main.m */,
+				84A785422495CA3C009E3300 /* PaddedTextField.swift */,
+				84A785412495CA3B009E3300 /* Programmatic-ScrollView-Login-Bridging-Header.h */,
 			);
 			path = "Programmatic-ScrollView-Login";
 			sourceTree = "<group>";
@@ -107,6 +112,7 @@
 				TargetAttributes = {
 					84A7851D2495B8C7009E3300 = {
 						CreatedOnToolsVersion = 11.3;
+						LastSwiftMigration = 1130;
 					};
 				};
 			};
@@ -147,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84A785292495B8C8009E3300 /* ViewController.m in Sources */,
+				84A785432495CA3C009E3300 /* PaddedTextField.swift in Sources */,
 				84A785232495B8C8009E3300 /* AppDelegate.m in Sources */,
 				84A785342495B8C9009E3300 /* main.m in Sources */,
 				84A785262495B8C8009E3300 /* SceneDelegate.m in Sources */,
@@ -289,7 +296,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = BH59G2VDQ6;
 				INFOPLIST_FILE = "Programmatic-ScrollView-Login/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -298,6 +307,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.audreywelch.Programmatic-ScrollView-Login";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Programmatic-ScrollView-Login/Programmatic-ScrollView-Login-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -306,7 +318,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = BH59G2VDQ6;
 				INFOPLIST_FILE = "Programmatic-ScrollView-Login/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -315,6 +329,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.audreywelch.Programmatic-ScrollView-Login";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Programmatic-ScrollView-Login/Programmatic-ScrollView-Login-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

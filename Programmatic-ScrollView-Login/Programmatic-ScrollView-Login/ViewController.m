@@ -100,8 +100,8 @@ CGFloat stackViewPadding = 20;
     [nameTextField.heightAnchor constraintEqualToConstant:textFieldHeight].active = YES;
     [passwordTextField.heightAnchor constraintEqualToConstant:textFieldHeight].active = YES;
     
-    nameTextField.nextView = passwordTextField;
-    passwordTextField.nextView = nil;
+    //nameTextField.nextView = passwordTextField;
+    //passwordTextField.nextView = nil;
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     [button setBackgroundImage:[UIImage imageNamed:@"blue-button"] forState:UIControlStateNormal];
@@ -137,10 +137,10 @@ CGFloat stackViewPadding = 20;
     
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    
-    
-}
+//- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+//
+//
+//}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
@@ -148,10 +148,16 @@ CGFloat stackViewPadding = 20;
     
     if (height > imageHeight) {
         // stretch it longer using contentFill
-        _topImageView.frame.size.height = height;
+        CGRect rect = _topImageView.frame;
+        rect.size.height = height;
+        _topImageView.frame = rect;
+        
     } else {
         // push it offscreen by changing the y coordinate
-        self.topImageView.frame.origin.y = height - imageHeight;
+        CGRect frame = _topImageView.frame;
+        frame.origin.y = height - imageHeight;
+        _topImageView.frame = frame;
+        
     }
 }
 

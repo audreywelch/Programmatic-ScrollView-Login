@@ -10,7 +10,7 @@
 #import "Programmatic_ScrollView_Login-Swift.h"
 
 static const CGFloat imageHeight = 300;
-static const CGFloat buttonheight = 60;
+static const CGFloat buttonHeight = 60;
 static const CGFloat textFieldHeight = 40;
 static const CGFloat stackViewPadding = 20;
 
@@ -64,8 +64,13 @@ static const CGFloat stackViewPadding = 20;
     [scrollView addSubview:contentView];
     
     // Content View Constraints
-    [contentView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor].active = YES;
-    //[contentView.heightAnchor constraintEqualToAnchor:self.view.heightAnchor].active = YES;
+    [self.view addConstraints:@[
+        [contentView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor],
+        [contentView.leadingAnchor constraintEqualToAnchor:scrollView.leadingAnchor],
+        [contentView.trailingAnchor constraintEqualToAnchor:scrollView.trailingAnchor],
+        [contentView.topAnchor constraintEqualToAnchor:scrollView.topAnchor],
+        [contentView.bottomAnchor constraintEqualToAnchor:scrollView.bottomAnchor],
+    ]];
     
     // ADD STACK VIEW FOR CONTENT VIEW
     UIStackView *stackView = [[UIStackView alloc] init];
@@ -112,6 +117,8 @@ static const CGFloat stackViewPadding = 20;
     button.adjustsImageWhenHighlighted = YES;
     [button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
+    [button.heightAnchor constraintEqualToConstant:buttonHeight].active = YES;
+    
     [stackView addArrangedSubview:self.nameTextField];
     [stackView addArrangedSubview:self.passwordTextField];
     [stackView addArrangedSubview:button];
@@ -125,17 +132,12 @@ static const CGFloat stackViewPadding = 20;
 }
 
 - (void)addImageView {
+    self.topImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"kalen-emsley-mountain"]];
+    self.topImageView.frame = CGRectMake(0, 0, self.view.bounds.size.width, imageHeight);
+    self.topImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.topImageView.clipsToBounds = YES;
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"kalen-emsley-mountain"]];
-    
-    imageView.frame = CGRectMake(0, 0, self.view.bounds.size.width, imageHeight);
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.clipsToBounds = YES;
-    
-    _topImageView = imageView;
-    
-    [self.view addSubview:imageView];
-    
+    [self.view addSubview:self.topImageView];
 }
 
 #pragma mark - UITextFieldDelegate Methods
@@ -158,20 +160,17 @@ static const CGFloat stackViewPadding = 20;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     CGFloat height = -scrollView.contentOffset.y;
+    CGRect frame = self.topImageView.frame;
+    frame.size.width = self.view.bounds.size.width;
     
     if (height > imageHeight) {
-        // stretch it longer using contentFill
-        CGRect rect = _topImageView.frame;
-        rect.size.height = height;
-        _topImageView.frame = rect;
-        
+        // stretch image vertically
+        frame.size.height = height;
     } else {
-        // push it offscreen by changing the y coordinate
-        CGRect frame = _topImageView.frame;
+        // push image offscreen by changing the y coordinate
         frame.origin.y = height - imageHeight;
-        _topImageView.frame = frame;
-        
     }
+    self.topImageView.frame = frame;
 }
 
 

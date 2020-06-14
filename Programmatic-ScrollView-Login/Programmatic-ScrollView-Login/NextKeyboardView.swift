@@ -8,6 +8,6 @@
 
 import UIKit
 
-protocol NextView: UIView {
-    var nextView: UIView? { get set }
+@objc protocol NextView {
+    @objc var nextView: UIView? { get set }
 }

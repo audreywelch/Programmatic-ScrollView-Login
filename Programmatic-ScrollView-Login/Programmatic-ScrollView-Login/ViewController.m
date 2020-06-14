@@ -9,23 +9,24 @@
 #import "ViewController.h"
 #import "Programmatic_ScrollView_Login-Swift.h"
 
+static const CGFloat imageHeight = 300;
+static const CGFloat buttonheight = 60;
+static const CGFloat textFieldHeight = 40;
+static const CGFloat stackViewPadding = 20;
+
+// Class Extension
 @interface ViewController () <UITextFieldDelegate, UIScrollViewDelegate>
+
+@property (nonatomic) PaddedTextField *nameTextField;
+@property (nonatomic) PaddedTextField *passwordTextField;
+@property (nonatomic) UIImageView *topImageView;
 
 - (void)updateViews;
 - (void)addImageView;
 
-@property (nonatomic)UIImageView *topImageView;
-
 @end
 
 @implementation ViewController
-
-CGFloat imageHeight = 300;
-CGFloat buttonheight = 60;
-CGFloat textFieldHeight = 40;
-CGFloat stackViewPadding = 20;
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -84,24 +85,24 @@ CGFloat stackViewPadding = 20;
     [stackView.bottomAnchor constraintEqualToAnchor:contentView.bottomAnchor].active = YES;
     
     // ADD TEXT FIELDS
-    UITextField *nameTextField = [[PaddedTextField alloc] init];
-    nameTextField.translatesAutoresizingMaskIntoConstraints = NO;
-    nameTextField.placeholder = @"Name";
-    nameTextField.delegate = self;
-    [self.view addSubview:nameTextField];
+    self.nameTextField = [[PaddedTextField alloc] init];
+    self.nameTextField.translatesAutoresizingMaskIntoConstraints = NO;
+    self.nameTextField.placeholder = @"Name";
+    self.nameTextField.delegate = self;
+    [self.view addSubview:self.nameTextField];
     
-    UITextField *passwordTextField = [[PaddedTextField alloc] init];
-    passwordTextField.translatesAutoresizingMaskIntoConstraints = NO;
-    passwordTextField.placeholder = @"Password";
-    passwordTextField.delegate = self;
-    passwordTextField.secureTextEntry = YES;
+    self.passwordTextField = [[PaddedTextField alloc] init];
+    self.passwordTextField.translatesAutoresizingMaskIntoConstraints = NO;
+    self.passwordTextField.placeholder = @"Password";
+    self.passwordTextField.delegate = self;
+    self.passwordTextField.secureTextEntry = YES;
     
     // Text Field Constraints
-    [nameTextField.heightAnchor constraintEqualToConstant:textFieldHeight].active = YES;
-    [passwordTextField.heightAnchor constraintEqualToConstant:textFieldHeight].active = YES;
+    [self.nameTextField.heightAnchor constraintEqualToConstant:textFieldHeight].active = YES;
+    [self.passwordTextField.heightAnchor constraintEqualToConstant:textFieldHeight].active = YES;
     
-    //nameTextField.nextView = passwordTextField;
-    //passwordTextField.nextView = nil;
+    self.nameTextField.nextView = self.passwordTextField;
+    self.passwordTextField.nextView = nil;
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     [button setBackgroundImage:[UIImage imageNamed:@"blue-button"] forState:UIControlStateNormal];
@@ -111,8 +112,8 @@ CGFloat stackViewPadding = 20;
     button.adjustsImageWhenHighlighted = YES;
     [button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    [stackView addArrangedSubview:nameTextField];
-    [stackView addArrangedSubview:passwordTextField];
+    [stackView addArrangedSubview:self.nameTextField];
+    [stackView addArrangedSubview:self.passwordTextField];
     [stackView addArrangedSubview:button];
     
 }
@@ -137,10 +138,22 @@ CGFloat stackViewPadding = 20;
     
 }
 
-//- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-//
-//
-//}
+#pragma mark - UITextFieldDelegate Methods
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if ([textField conformsToProtocol:@protocol(NextView)]) {
+        id<NextView> view = (id<NextView>)textField;
+        if (view.nextView) {
+            [view.nextView becomeFirstResponder];
+        } else {
+            [textField resignFirstResponder];
+            NSLog(@"Log in with user: %@, password: %@", self.nameTextField.text, self.passwordTextField.text);
+        }
+    }
+    return YES;
+}
+
+#pragma mark - UIScrollViewDelegate Methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     

@@ -8,9 +8,11 @@
 
 import UIKit
 
-@objc public class PaddedTextField: UITextField {
+@objc public class PaddedTextField: UITextField, NextView {
     
-    override public init(frame: CGRect) {
+    @objc var nextView: UIView?
+    
+    @objc override public init(frame: CGRect) {
         super.init(frame: frame)
         
         backgroundColor = .white

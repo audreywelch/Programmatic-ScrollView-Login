@@ -2,15 +2,12 @@
   "images" : [
     {
       "resizing" : {
-        "mode" : "9-part",
+        "mode" : "3-part-horizontal",
         "center" : {
           "mode" : "tile",
-          "width" : 1,
-          "height" : 1
+          "width" : 1
         },
         "cap-insets" : {
-          "bottom" : 7,
-          "top" : 7,
           "right" : 7,
           "left" : 7
         }

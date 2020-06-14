@@ -11,7 +11,7 @@
 
 @interface ViewController ()
 
-- (void)addScrollView;
+- (void)updateViews;
 - (void)addImageView;
 
 @end
@@ -25,17 +25,18 @@ CGFloat textFieldHeight = 40;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self addScrollView];
+    [self updateViews];
     [self addImageView];
 
 }
 
-- (void)addScrollView {
+- (void)updateViews {
     
     // ADD SCROLL VIEW
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-    scrollView.backgroundColor = [UIColor cyanColor];
+    scrollView.alwaysBounceVertical = YES;
+    scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     scrollView.contentInset = UIEdgeInsetsMake(imageHeight, 0, 0, 0);
     
     [self.view addSubview:scrollView];
@@ -50,7 +51,6 @@ CGFloat textFieldHeight = 40;
     // ADD CONTENT VIEW
     UIView *contentView = [[UIView alloc] init];
     contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    contentView.backgroundColor = [UIColor systemPinkColor];
     
     [scrollView addSubview:contentView];
     
@@ -63,7 +63,9 @@ CGFloat textFieldHeight = 40;
     stackView.translatesAutoresizingMaskIntoConstraints = NO;
     stackView.axis = UILayoutConstraintAxisVertical;
     stackView.alignment = UIStackViewAlignmentFill;
+    stackView.spacing = 8;
     stackView.directionalLayoutMargins = NSDirectionalEdgeInsetsMake(20, 20, 20, 20);
+    stackView.layoutMarginsRelativeArrangement = YES;
 
     [contentView addSubview:stackView];
     
@@ -84,12 +86,20 @@ CGFloat textFieldHeight = 40;
     passwordTextField.placeholder = @"Password";
     passwordTextField.secureTextEntry = YES;
     
+    // Text Field Constraints
+    [nameTextField.heightAnchor constraintEqualToConstant:textFieldHeight].active = YES;
+    [passwordTextField.heightAnchor constraintEqualToConstant:textFieldHeight].active = YES;
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button setBackgroundImage:[UIImage imageNamed:@"blue-button"] forState:UIControlStateNormal];
+    [button setTitle:@"Log In" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:24 weight:UIFontWeightBold];
+    button.adjustsImageWhenHighlighted = YES;
+    
     [stackView addArrangedSubview:nameTextField];
     [stackView addArrangedSubview:passwordTextField];
-    
-    
-    
-
+    [stackView addArrangedSubview:button];
     
 }
 
@@ -98,7 +108,6 @@ CGFloat textFieldHeight = 40;
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"kalen-emsley-mountain"]];
     
     imageView.frame = CGRectMake(0, 0, self.view.bounds.size.width, imageHeight);
-    imageView.alpha = 0.5;
     
     [self.view addSubview:imageView];
     

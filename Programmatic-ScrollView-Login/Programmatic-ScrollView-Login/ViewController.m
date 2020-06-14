@@ -68,18 +68,24 @@ CGFloat textFieldHeight = 40;
     [contentView addSubview:stackView];
     
     // Stack View Constraints
-    [stackView.topAnchor constraintEqualToAnchor:scrollView.topAnchor].active = YES;
-    [stackView.leadingAnchor constraintEqualToAnchor:scrollView.leadingAnchor].active = YES;
-    [stackView.trailingAnchor constraintEqualToAnchor:scrollView.trailingAnchor].active = YES;
-    [stackView.bottomAnchor constraintEqualToAnchor:scrollView.bottomAnchor].active = YES;
+    [stackView.topAnchor constraintEqualToAnchor:contentView.topAnchor].active = YES;
+    [stackView.leadingAnchor constraintEqualToAnchor:contentView.leadingAnchor].active = YES;
+    [stackView.trailingAnchor constraintEqualToAnchor:contentView.trailingAnchor].active = YES;
+    [stackView.bottomAnchor constraintEqualToAnchor:contentView.bottomAnchor].active = YES;
     
     // ADD TEXT FIELDS
-    UITextField *nameTextField = [[UITextField alloc] init];
+    UITextField *nameTextField = [[PaddedTextField alloc] init];
     nameTextField.translatesAutoresizingMaskIntoConstraints = NO;
     nameTextField.placeholder = @"Name";
     [self.view addSubview:nameTextField];
     
+    UITextField *passwordTextField = [[PaddedTextField alloc] init];
+    passwordTextField.translatesAutoresizingMaskIntoConstraints = NO;
+    passwordTextField.placeholder = @"Password";
+    passwordTextField.secureTextEntry = YES;
+    
     [stackView addArrangedSubview:nameTextField];
+    [stackView addArrangedSubview:passwordTextField];
     
     
     
